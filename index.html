@@ -1,0 +1,41 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Closet</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="container">
+        <h1>Virtual Closet</h1>
+        <div class="camera">
+            <video id="video" width="320" height="240" autoplay></video>
+            <button id="snap">Snap Photo</button>
+            <canvas id="canvas" width="320" height="240"></canvas>
+        </div>
+        <div class="clothes">
+            <h2>Your Clothes</h2>
+            <div id="clothesList"></div>
+        </div>
+        <div class="outfit-suggestion">
+            <h2>Outfit Suggestion</h2>
+            <p id="suggestion"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                }).catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
+    </script>
+</body>
+</html>
+
