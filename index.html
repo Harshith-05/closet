@@ -3,27 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virtual Closet</title>
+    <title>Capture Image with Rear Camera</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Virtual Closet</h1>
+        <h1>Capture Image with Rear Camera</h1>
         <div class="camera">
-            <video id="video" autoplay></video>
+            <video id="video" autoplay playsinline></video>
             <button id="snap">Snap Photo</button>
-            <button id="toggleCamera">Switch Camera</button>
             <canvas id="canvas"></canvas>
         </div>
         <div class="clothes">
-            <h2>Your Clothes</h2>
+            <h2>Captured Images</h2>
             <div id="clothesList"></div>
-        </div>
-        <div class="outfit-suggestion">
-            <h2>Outfit Suggestion</h2>
-            <p id="suggestion"></p>
         </div>
     </div>
     <script src="script.js"></script>
 </body>
 </html>
+
