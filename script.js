@@ -3,20 +3,40 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.getElementById('canvas');
     const context = canvas.getContext('2d');
     const snap = document.getElementById('snap');
+    const toggleCamera = document.getElementById('toggleCamera');
     const clothesList = document.getElementById('clothesList');
     const suggestion = document.getElementById('suggestion');
 
-    // Access the device camera and stream to video element
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
+    let useFrontCamera = false;
+    let stream;
+
+    const startCamera = async (facingMode) => {
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+        }
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({ 
+                video: { facingMode }
+            });
             video.srcObject = stream;
-        })
-        .catch(err => {
+        } catch (err) {
             console.error("Error accessing the camera", err);
-        });
+        }
+    };
+
+    // Start with the rear camera
+    startCamera('environment');
+
+    toggleCamera.addEventListener("click", () => {
+        useFrontCamera = !useFrontCamera;
+        startCamera(useFrontCamera ? 'user' : 'environment');
+    });
 
     snap.addEventListener("click", () => {
-        context.drawImage(video, 0, 0, 320, 240);
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+        
         const img = new Image();
         img.src = canvas.toDataURL("image/png");
         clothesList.appendChild(img);
